@@ -22,7 +22,7 @@ const LoginForm = (props) => {
             <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="username" placeholder="Enter Email" onChange={(event) => setUserName(event.target.value)}/>
-                <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
+                <Form.Text className="text-muted"></Form.Text>
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
