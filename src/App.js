@@ -1,7 +1,7 @@
 // import jwt_decode from 'jwt-decode';
 import './App.css';
 import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import LoginForm from './Components/LoginForm/LoginForm';
 import NavBar from './Components/NavBar/NavBar';
@@ -28,18 +28,16 @@ function App() {
 
     const [videoSearched, setVideoSearched] = useState(null);
 
-    useEffect(() => (
-      console.log(keys.googleAPIKey)
-    ), []);
-
     async function filteredVideo(videoSearched){
         let response = await axios.get(`https://www.youtube.com/watch?key=${keys.googleAPIKey}&v=${videoSearched}`);
+        setVideoSearched(response);
         console.log(response);
+        
     }
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar filteredVideo={filteredVideo}/>
       <header className="App-header">
         <Routes>
           {/* <Route path='/profile' element={() => {
@@ -50,12 +48,12 @@ function App() {
               return <RegistrationForm user={user} />
             }
           }} /> */}
-          <Route exact path='/' element={<HomePage/>}/>
+          <Route exact path='/' element={<HomePage />}/>
           <Route path='register' element={<RegistrationForm />} />
           <Route path='login' element={<LoginForm />} />
 
           {/* How to click on video and send user to videopage  */}
-          <Route path='videoPage' element={<VideoPage />} />
+          <Route path='videoPage' element={<VideoPage filtervideoSearched={videoSearched}/>} />
         </Routes>
       </header>
     </div>
