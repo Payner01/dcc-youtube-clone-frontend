@@ -25,18 +25,15 @@ function App() {
     //     } catch {}
     // }, []);
 
-
+    // gets a video ID
     const [videoSearched, setVideoSearched] = useState(null);
     const [videoId, setVideoId] = useState(null)
-    
+
     console.log(videoSearched)
     async function filteredVideo(videoSearched){
         let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${keys.googleAPIKey}&type=video&q=${videoSearched}`);
-        setVideoSearched(response);
-        console.log(response);
-        
+        setVideoSearched(response.data.items[0].id.videoId);
     }
-
   return (
     <div className="App">
       <NavBar filteredVideo={filteredVideo}/>
@@ -54,7 +51,7 @@ function App() {
           <Route path='register' element={<RegistrationForm />} />
           <Route path='login' element={<LoginForm />} />
 
-          {/* How to click on video and send user to videopage  */}
+          {/* How to click on video and send user to videopage maybe make another component to display videos that were sreached  */}
           <Route path='videoPage' element={<VideoPage filtervideoSearched={videoSearched}/>} />
         </Routes>
       </header>
