@@ -27,9 +27,11 @@ function App() {
 
 
     const [videoSearched, setVideoSearched] = useState(null);
-
+    const [videoId, setVideoId] = useState(null)
+    
+    console.log(videoSearched)
     async function filteredVideo(videoSearched){
-        let response = await axios.get(`https://www.youtube.com/watch?key=${keys.googleAPIKey}&v=${videoSearched}`);
+        let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${keys.googleAPIKey}&type=video&q=${videoSearched}`);
         setVideoSearched(response);
         console.log(response);
         

@@ -11,10 +11,7 @@ const NavBar = (props) => {
 
     function handleSubmit(event){
         event.preventDefault(); 
-        let newEntry = '';
-        setSearched(newEntry);
         props.filteredVideo(searched);
-        
     }
 
     return ( 
@@ -30,7 +27,7 @@ const NavBar = (props) => {
             </Nav>
             </Navbar.Collapse>
         <Form className="d-flex" onSubmit={handleSubmit}>
-            <FormControl type="search" placeholder="Search" className="me-2" aria-label="Search" />
+            <FormControl type="search" placeholder="Search" className="me-2" aria-label="Search" onChange={(event) => setSearched(event.target.value)}/>
             <Button type='submit' variant="info">Search</Button>
         </Form>
         </Container>
