@@ -2,7 +2,7 @@
 import './App.css';
 import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
 import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import LoginForm from './Components/LoginForm/LoginForm';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
@@ -10,10 +10,12 @@ import VideoPage from './Components/VideoPage/VideoPage';
 import keys from './API_Keys.json'
 import axios from 'axios';
 import SearchResults from './Components/SearchResults/SearchResults';
+import { useNavigate } from "react-router-dom"
 
-// import axios from 'axios';
 
 function App() {
+
+  let navigate = useNavigate();
 
   const [user, setUser] = useState(null);
 
@@ -26,15 +28,15 @@ function App() {
     //     } catch {}
     // }, []);
 
+    
     // user search
     const [videoSearched, setVideoSearched] = useState(null);
     // gets a video IDs
     const [videosId, setVideosId] = useState([]);
     // video that user clicked on
-    const [selectedVideo, setSelectedVideo] =  useState([]);
+    const [selectedVideo, setSelectedVideo] =  useState("");
 
-    console.log(videoSearched)
-    console.log(videosId)
+
     async function filteredVideo(videoSearched){
         let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${keys.googleAPIKey}&type=video&q=${videoSearched}`);
         setVideosId(response.data.items);
@@ -42,10 +44,12 @@ function App() {
         console.log(response.data.items);
           }
 
-    console.log(selectedVideo)
-    function selectedVideoId(videoid){
+    
+
+    const selectedVideoId = (videoid) => {
       setSelectedVideo(videoid);
       console.log(videoid);
+      navigate('/videopage')
     }
 
 
