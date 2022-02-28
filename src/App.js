@@ -9,6 +9,7 @@ import HomePage from './Components/HomePage/HomePage';
 import VideoPage from './Components/VideoPage/VideoPage';
 import keys from './API_Keys.json'
 import axios from 'axios';
+import SearchResults from './Components/SearchResults/SearchResults';
 
 // import axios from 'axios';
 
@@ -25,15 +26,30 @@ function App() {
     //     } catch {}
     // }, []);
 
-    // gets a video ID
+    // user search
     const [videoSearched, setVideoSearched] = useState(null);
-    const [videoId, setVideoId] = useState(null)
+    // gets a video IDs
+    const [videosId, setVideosId] = useState([]);
+    // video that user clicked on
+    const [selectedVideo, setSelectedVideo] =  useState([]);
 
     console.log(videoSearched)
+    console.log(videosId)
     async function filteredVideo(videoSearched){
         let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${keys.googleAPIKey}&type=video&q=${videoSearched}`);
-        setVideoSearched(response.data.items[0].id.videoId);
+        setVideosId(response.data.items);
+
+        console.log(response.data.items);
+          }
+
+    console.log(selectedVideo)
+    function selectedVideoId(videoid){
+      setSelectedVideo(videoid);
+      console.log(videoid);
     }
+
+
+
   return (
     <div className="App">
       <NavBar filteredVideo={filteredVideo}/>
@@ -52,7 +68,8 @@ function App() {
           <Route path='login' element={<LoginForm />} />
 
           {/* How to click on video and send user to videopage maybe make another component to display videos that were sreached  */}
-          <Route path='videoPage' element={<VideoPage filtervideoSearched={videoSearched}/>} />
+          <Route path='videopage' element={<VideoPage selectedVideo={selectedVideo}/>} />
+          <Route path='searchresults' element={<SearchResults selectedVideoId={selectedVideoId} videosId={videosId}/>} />
         </Routes>
       </header>
     </div>
