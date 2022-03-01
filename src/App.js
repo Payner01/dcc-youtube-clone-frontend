@@ -19,6 +19,33 @@ function App() {
 
   const [user, setUser] = useState(null);
 
+  async function createUser(newEntry){
+    console.log(newEntry);
+    try {
+        let response = await axios.post('http://127.0.0.1:8000/api/auth/register/', newEntry)
+        console.log(response);
+        console.log(response.data);
+    } catch (ex) {
+        console.log(ex.response);
+    }
+  }
+
+  async function loginUser(loginUser){
+    console.log(loginUser);
+    try {
+      let response = await axios.post('http://127.0.0.1:8000/api/auth/login/', loginUser)
+    console.log(response);
+    if(response.status == 200){
+      setUser(loginUser);
+      navigate('/');
+    }} catch (ex) {
+      console.log(ex.response)
+    }
+    
+    
+    
+  }
+
     // // gets Token for users
     // useEffect(() => {
     //     const jwt = localStorage.getItem('token');
@@ -28,7 +55,6 @@ function App() {
     //     } catch {}
     // }, []);
 
-    
     // user search
     const [videoSearched, setVideoSearched] = useState(null);
     // gets a video IDs
@@ -56,11 +82,9 @@ function App() {
       navigate('/videopage')
     }
 
-
-
   return (
     <div className="App">
-      <NavBar filteredVideo={filteredVideo}/>
+      <NavBar filteredVideo={filteredVideo} user={user}/>
       <header className="App-header">
         <Routes>
           {/* <Route path='/profile' element={() => {
@@ -72,8 +96,8 @@ function App() {
             }
           }} /> */}
           <Route exact path='/' element={<HomePage />}/>
-          <Route path='register' element={<RegistrationForm />} />
-          <Route path='login' element={<LoginForm />} />
+          <Route path='register' element={<RegistrationForm createUser={createUser}/>} />
+          <Route path='login' element={<LoginForm loginUser={loginUser} />} />
 
           {/* How to click on video and send user to videopage maybe make another component to display videos that were sreached  */}
           <Route path='videopage' element={<VideoPage title={title} description={description} selectedVideo={selectedVideo}/>} />

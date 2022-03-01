@@ -13,8 +13,11 @@ const LoginForm = (props) => {
             username: username,
             password: password
         }
-
+        props.loginUser(currentUser);
+        console.log(currentUser)
+        console.log(currentUser)
     }
+    
 
     return ( 
 

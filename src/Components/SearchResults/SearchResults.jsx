@@ -5,9 +5,6 @@ import { Navbar, Card, Container, Nav, Form, Button, FormControl, } from 'react-
 const SearchResults = (props) => {
 
 
-const [selectedVideo, setSelectedVideo] = useState('');
-
-// function getVideoInfo()
 
     return ( 
         <div>

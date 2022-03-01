@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Button, Form } from 'react-bootstrap'
 import './RegistrationForm.css'
+import { useNavigate } from "react-router-dom"
 
 const RegistrationForm = (props) => {
+
+    let navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -20,37 +23,28 @@ const RegistrationForm = (props) => {
             first_name: name,
             last_name: lastName
         }
-        createUser(newEntry);
+        props.createUser(newEntry);
+        // TODO LATER: when user makes a bad password he will not be created to database. figure out how to keep him on registrationform
+        navigate('/login')
     }
 
-    async function createUser(newEntry){
-        console.log(newEntry);
-        try {
-            let response = await axios.post('http://127.0.0.1:8000/api/auth/register/', newEntry)
-            console.log(response);
-            console.log(response.data);
-        } catch (ex) {
-            console.log(ex.response);
-        }
-
-    }
 
     return ( 
         <div className="color-overlay d-flex justify-content-center align-items-center">
-        <Form onSubmit={handleSubmit } className="rounded p-4 p-sm-3">
+        <Form onSubmit={ handleSubmit } className="rounded p-4 p-sm-3">
             <h3>Create User</h3>
             <Form.Group className="mb-3">
                 <Form.Label>First Name</Form.Label>
-                <Form.Control type="firstname" placeholder="first name" onChange={(event) => setUserName(event.target.value)}/>
+                <Form.Control type="firstname" placeholder="first name" onChange={(event) => setName(event.target.value)}/>
                 <Form.Text className="text-muted"></Form.Text>
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Last Name</Form.Label>
-                <Form.Control type="lastname" placeholder="last name" onChange={(event) => setUserName(event.target.value)}/>
+                <Form.Control type="lastname" placeholder="last name" onChange={(event) => setLastName(event.target.value)}/>
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="johndoe@example.com" onChange={(event) => setUserName(event.target.value)}/>
+                <Form.Control type="email" placeholder="johndoe@example.com" onChange={(event) => setEmail(event.target.value)}/>
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
