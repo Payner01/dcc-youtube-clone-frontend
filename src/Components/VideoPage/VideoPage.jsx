@@ -4,6 +4,9 @@ import Comment from '../Comment/Comment';
 const VideoPage = (props) => {
 
     // we're going to have to pass props for search to have searched video play
+    
+    let user = props.user
+    console.log(user)
 
     console.log(props.selectedVideo);
 
@@ -18,15 +21,15 @@ const VideoPage = (props) => {
         <iframe className="ytplayer" type="text/html" width="640" height="360"
         src={`https://www.youtube.com/embed/${props.selectedVideo}?autoplay=1&origin=http://example.com`}></iframe>
                 <Card.Body>
-                    <Card.Title>Title: {props.videoDetails.title}</Card.Title>
+                    <Card.Title>Title: {props.videoDetails.snippet.title}</Card.Title>
                     <Card.Text>
-                    Description: {props.videoDetails.description}
+                    Description: {props.videoDetails.snippet.description}
                     </Card.Text>
                 </Card.Body>
         </Card>
         <br />
         <div className='comment-section'>
-            <Comment user={props.user}/>
+            <Comment user={user}/>
         </div>
         </div>
         

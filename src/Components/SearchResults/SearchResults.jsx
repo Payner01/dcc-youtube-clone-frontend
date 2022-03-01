@@ -10,7 +10,7 @@ const SearchResults = (props) => {
         <div>
         {props.videosId.map((video, index) => {
             return (
-                <div>
+                <div key={index}>
                     <Card style={{ width: '18rem' }}>
                         <Card.Img variant="top" src={video.snippet.thumbnails.medium.url} />
                             <Card.Body>

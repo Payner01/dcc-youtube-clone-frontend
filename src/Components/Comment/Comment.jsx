@@ -6,16 +6,18 @@ import CommentList from "../CommentList/CommentList"
 
 const Comment = (props) => {
 
-    const [videoComments, setVideoComments] = useState('');
+    const [videoComments, setVideoComments] = useState([]);
+    let user = props.user
 
     async function getComments(){
         let response = await axios.get('http://127.0.0.1:8000/api/comments/comments/');
         setVideoComments(response.data);
+        console.log(response.data)
     }
 
     useEffect(() => {
         getComments();
-    })
+    }, [])
 
     return ( 
         <div>

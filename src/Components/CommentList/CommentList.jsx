@@ -1,16 +1,14 @@
 
 
 const CommentList = (props) => {
+
+    console.log(props.videoComments)
+    
     return ( 
         <body>
-            {props.videoComments.map((comment) => {
+            {props.videoComments.map((comment, index) => {
                 return (
-                    <div className="form-grid">
-                        <div className="form-control" >
-                        <h4 className="form-heading">{comment.name}</h4>
-                        <div className="post-content">{comment.text}</div>                       
-                        </div>
-                    </div>
+                    <h1 key={index}>{comment.text}</h1>
                 );
             })}
         </body>

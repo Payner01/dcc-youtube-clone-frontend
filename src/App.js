@@ -47,6 +47,7 @@ function App() {
   }
   console.log(user)
 
+
 /////////////////////// Video Section ///////////////////////////
 
     const [videoSearched, setVideoSearched] = useState(null);
@@ -77,7 +78,7 @@ function App() {
       const jwt = localStorage.getItem('token');
       try {
           const decodedUser = jwt_decode(jwt);
-          setUser(decodedUser);
+          setUserCode(decodedUser);
 
       } catch {}
   }, []);
