@@ -6,6 +6,9 @@ const VideoPage = (props) => {
     // we're going to have to pass props for search to have searched video play
     
     let user = props.user
+    
+    let videoId = props.selectedVideo
+    
     console.log(user)
 
     console.log(props.selectedVideo);
@@ -29,7 +32,7 @@ const VideoPage = (props) => {
         </Card>
         <br />
         <div className='comment-section'>
-            <Comment user={user}/>
+            <Comment user={user} videoId={videoId}/>
         </div>
         </div>
         

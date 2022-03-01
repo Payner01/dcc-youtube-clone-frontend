@@ -7,7 +7,7 @@ import CommentList from "../CommentList/CommentList"
 const Comment = (props) => {
 
     const [videoComments, setVideoComments] = useState([]);
-    let user = props.user
+    let videoId = props.videoId
 
     async function getComments(){
         let response = await axios.get('http://127.0.0.1:8000/api/comments/comments/');
@@ -21,7 +21,7 @@ const Comment = (props) => {
 
     return ( 
         <div>
-            <CommentForm />
+            <CommentForm videoId={videoId} />
             <CommentList videoComments={videoComments} />
         </div>
 

@@ -2,7 +2,7 @@ import jwt_decode from 'jwt-decode';
 import './App.css';
 import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
 import React, { useState, useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import LoginForm from './Components/LoginForm/LoginForm';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
@@ -37,7 +37,7 @@ function App() {
     try {
       let response = await axios.post('http://127.0.0.1:8000/api/auth/login/', loginUser)
     console.log(response);
-    if(response.status == 200){
+    if(response.status === 201){
       setUser(loginUser);
       localStorage.setItem('token', response.data.access)
       navigate('/');
@@ -46,6 +46,17 @@ function App() {
     }
   }
   console.log(user)
+
+  // gets Token for users keep user on website even after refresh
+  useEffect(() => {
+    const jwt = localStorage.getItem('token');
+    try {
+        const decodedUser = jwt_decode(jwt);
+        setUserCode(decodedUser);
+
+    } catch {}
+}, []);
+
 
 
 /////////////////////// Video Section ///////////////////////////
@@ -73,15 +84,8 @@ function App() {
     }
     console.log(videoDetails);
 
-    // gets Token for users keep user on website even after refresh
-    useEffect(() => {
-      const jwt = localStorage.getItem('token');
-      try {
-          const decodedUser = jwt_decode(jwt);
-          setUserCode(decodedUser);
-
-      } catch {}
-  }, []);
+    
+  
 
   return (
     <div className="App">

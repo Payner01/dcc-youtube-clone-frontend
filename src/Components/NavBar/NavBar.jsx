@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { Navbar, Container, Nav, Form, Button, FormControl, } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom"
@@ -17,6 +16,8 @@ const NavBar = (props) => {
         navigate('/searchresults')
 
     }
+
+    
 
     return ( 
         <Navbar bg="light" expand="lg">
