@@ -1,7 +1,7 @@
-// import jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import './App.css';
 import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import LoginForm from './Components/LoginForm/LoginForm';
 import NavBar from './Components/NavBar/NavBar';
@@ -16,8 +16,10 @@ import { useNavigate } from "react-router-dom"
 function App() {
 
   let navigate = useNavigate();
-
+// user login info
   const [user, setUser] = useState(null);
+// This get users token
+  const [userCode, setUserCode] = useState (null);
 
   async function createUser(newEntry){
     console.log(newEntry);
@@ -37,34 +39,24 @@ function App() {
     console.log(response);
     if(response.status == 200){
       setUser(loginUser);
+      localStorage.setItem('token', response.data.access)
       navigate('/');
     }} catch (ex) {
       console.log(ex.response)
     }
-    
-    
-    
   }
+  console.log(user)
 
-    // // gets Token for users
-    // useEffect(() => {
-    //     const jwt = localStorage.getItem('token');
-    //     try {
-    //         const decodedUser = jwt_decode(jwt);
-    //         setUser(decodedUser);
-    //     } catch {}
-    // }, []);
+/////////////////////// Video Section ///////////////////////////
 
-    // user search
     const [videoSearched, setVideoSearched] = useState(null);
     // gets a video IDs
     const [videosId, setVideosId] = useState([]);
-    // video that user clicked on
+    // video id that user clicked on
     const [selectedVideo, setSelectedVideo] =  useState("");
-
-    const [title, setTitle] = useState([])
-
-    const [description, setDescription] = useState()
+    //sets the selected video
+    const [videoDetails, setVideoDetails] = useState([]);
+    // holds the details of selected video
 
     async function filteredVideo(videoSearched){
         let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${keys.googleAPIKey}&type=video&q=${videoSearched}&part=snippet`);
@@ -72,35 +64,43 @@ function App() {
         console.log(response.data.items);
     }
 
-    
-
     const selectedVideoId = (video) => {
       setSelectedVideo(video.id.videoId);
-      setTitle(video.snippet.title);
-      setDescription(video.snippet.description)
+      setVideoDetails(video);
       console.log(video);
       navigate('/videopage')
     }
+    console.log(videoDetails);
+
+    // gets Token for users keep user on website even after refresh
+    useEffect(() => {
+      const jwt = localStorage.getItem('token');
+      try {
+          const decodedUser = jwt_decode(jwt);
+          setUser(decodedUser);
+
+      } catch {}
+  }, []);
 
   return (
     <div className="App">
-      <NavBar filteredVideo={filteredVideo} user={user}/>
+      <NavBar filteredVideo={filteredVideo} userCode={userCode} user={user}/>
       <header className="App-header">
         <Routes>
-          {/* <Route path='/profile' element={() => {
-            if (!user) {
+        <Route path='register' element={() => {
+            if (!userCode) {
               return <LoginForm />
             }
             else {
-              return <RegistrationForm user={user} />
+              return <HomePage user={user} />
             }
-          }} /> */}
+          }} />
           <Route exact path='/' element={<HomePage />}/>
           <Route path='register' element={<RegistrationForm createUser={createUser}/>} />
           <Route path='login' element={<LoginForm loginUser={loginUser} />} />
 
           {/* How to click on video and send user to videopage maybe make another component to display videos that were sreached  */}
-          <Route path='videopage' element={<VideoPage title={title} description={description} selectedVideo={selectedVideo}/>} />
+          <Route path='videopage' element={<VideoPage videoDetails={videoDetails} selectedVideo={selectedVideo} user={user}/>} />
           <Route path='searchresults' element={<SearchResults selectedVideoId={selectedVideoId} videosId={videosId}/>} />
         </Routes>
       </header>
