@@ -57,7 +57,9 @@ function App() {
     } catch {}
 }, []);
 
-
+  function signOut(){
+    userCode = localStorage.removeItem('token');
+  }
 
 /////////////////////// Video Section ///////////////////////////
 
@@ -84,16 +86,13 @@ function App() {
     }
     console.log(videoDetails);
 
-    
-  
-
   return (
     <div className="App">
-      <NavBar filteredVideo={filteredVideo} userCode={userCode} user={user}/>
+      <NavBar filteredVideo={filteredVideo} userCode={userCode} user={user} signOut={signOut}/>
       <header className="App-header">
         <Routes>
         <Route path='register' element={() => {
-            if (!userCode) {
+            if (userCode == null) {
               return <LoginForm />
             }
             else {
