@@ -30,6 +30,8 @@ function App() {
         console.log(ex.response);
     }
   }
+  
+
 
   async function loginUser(loginUser){
     
@@ -39,31 +41,37 @@ function App() {
       if(response.status === 200){
       setUser(loginUser);
       localStorage.setItem('token', response.data.access);
-      navigate('/');
-      reloadPage();
+      // navigate('/');
+      // reloadPage();
     }} catch (ex) {
       console.log(ex.response);
     }
   }
 
+  
+
+  
+
   useEffect(() => { // gets Token for'token'rs keep user on website even after refresh
     const jwt = localStorage.getItem('token');
+    
     try {
         const decodedUser = jwt_decode(jwt);
         setUserCode(decodedUser);
         
-    } catch {}
+      
+        
+    } catch {
+
+    }
 }, []);
 
   const signOut =() =>{
     localStorage.removeItem('token');
     navigate('/');
-    reloadPage();
   }
 
-  function reloadPage(){
-    window.location.reload(false)
-  }
+
 
 
 /////////////////////// Video Section ///////////////////////////
@@ -100,6 +108,7 @@ function App() {
           <Route path='searchresults' element={<SearchResults selectedVideoId={selectedVideoId} videosId={videosId}/>} />
         </Routes>
       </header>
+      <button onClick={()=>console.log(user)}>Click me</button>
     </div>
   );
 }

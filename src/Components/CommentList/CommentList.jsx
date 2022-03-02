@@ -2,14 +2,16 @@
 
 const CommentList = (props) => {
 
-    console.log(props.videoComments)
     
     return ( 
         <div>
         
             {props.videoComments.map((comment, index) => {
                 return (
+                    <div>
+                    <h3>{comment.user.username}</h3>
                     <h1 key={index}>{comment.text}</h1>
+                    </div>
                 );
             })}
         </div>

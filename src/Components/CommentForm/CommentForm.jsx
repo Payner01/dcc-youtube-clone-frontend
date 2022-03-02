@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import { Form, Col, Button } from 'react-bootstrap'
 
 
@@ -7,27 +7,21 @@ const CommentForm = (props) => {
 
     const [comment, setComment] = useState('');
     const [likes, setLikes] = useState(0);
-    const [dislikes, setDislikes] = useState(0);
-    let videoId = props.videoId // passes the video's id ('string') 
-    let user = props.user.username// passes in username
-    
-    let userCode = props.userCode
-
-
-    console.log(user)
+    const [dislikes, setDislikes] = useState(0); 
 
     function handleSubmit(event){
         event.preventDefault();
         let newComment = {
-            user: userCode.user_id,
+            user: props.userCode.user_id,
             text: comment,
-            video_id: videoId,
+            video_id: props.videoId,
             likes: likes,
             dislikes: dislikes
 
         }
         postComment(newComment);
-        props.getComments();
+      
+        
     }
 
     async function postComment(comment){
@@ -41,16 +35,29 @@ const CommentForm = (props) => {
         } catch (ex) {
             console.log(ex.response);
         }
+        props.getComments();
         
     }
 
-    console.log(videoId)
-    console.log(comment)
+    // async function getUser(){
+    //     try {
+    //         let response =
+    //     }
+    // }
 
     return ( 
             
         <Form onSubmit={handleSubmit}>
-            <Form.Label column sm="2">{user}</Form.Label>
+            { localStorage.getItem('token') &&
+            <React.Fragment>
+            <Form.Label column sm="2"></Form.Label>
+            </React.Fragment>
+            }
+            { !localStorage.getItem('token') &&
+            <React.Fragment>
+            <Form.Label column sm="2">Sign in To Comment!</Form.Label>
+            </React.Fragment>
+            }
             <Form.Group  className="mb-3" controlId="formPlaintextPassword">
                 <Form.Label column sm="2">Comments</Form.Label>
                     <Col sm="10">

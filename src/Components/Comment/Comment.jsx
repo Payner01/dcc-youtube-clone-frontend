@@ -11,10 +11,12 @@ const Comment = (props) => {
     let user = props.user
     let userCode = props.userCode
 
+    console.log(user)
+
     async function getComments(){
         let response = await axios.get('http://127.0.0.1:8000/api/comments/comments/');
-        setVideoComments(response.data);
-        console.log(response.data)
+        setVideoComments(response.data.reverse());
+        console.log(response.data);
         
     }
 
@@ -24,7 +26,7 @@ const Comment = (props) => {
 
     return ( 
         <div>
-            <CommentForm videoId={videoId} userCode={userCode} getComments={getComments}user={user} />
+            <CommentForm videoId={videoId} userCode={userCode} getComments={getComments} user={user} />
             <CommentList videoComments={videoComments} />
         </div>
 
