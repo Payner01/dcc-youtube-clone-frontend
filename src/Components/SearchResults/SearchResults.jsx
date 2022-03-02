@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Navbar, Card, Container, Nav, Form, Button, FormControl, } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 
 
 const SearchResults = (props) => {

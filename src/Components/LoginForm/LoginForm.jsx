@@ -15,7 +15,7 @@ const LoginForm = (props) => {
         }
         props.loginUser(currentUser);
         console.log(currentUser)
-        console.log(currentUser)
+        
     }
     
 
@@ -24,7 +24,7 @@ const LoginForm = (props) => {
         <Form onSubmit={handleSubmit } className="rounded p-4 p-sm-3">
             <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="username" placeholder="Enter Email" onChange={(event) => setUserName(event.target.value)}/>
+                <Form.Control type="username" placeholder="Enter Username" onChange={(event) => setUserName(event.target.value)}/>
                 <Form.Text className="text-muted"></Form.Text>
             </Form.Group>
             <Form.Group className="mb-3">

@@ -16,10 +16,12 @@ import { useNavigate } from "react-router-dom"
 function App() {
 
   let navigate = useNavigate();
+
 // user login info
   const [user, setUser] = useState(null);
+  console.log(user)
 // This get users token
-  const [userCode, setUserCode] = useState (null);
+  const [userCode, setUserCode] = useState(null);
 
   async function createUser(newEntry){
     console.log(newEntry);
@@ -33,19 +35,18 @@ function App() {
   }
 
   async function loginUser(loginUser){
-    console.log(loginUser);
     try {
       let response = await axios.post('http://127.0.0.1:8000/api/auth/login/', loginUser)
     console.log(response);
-    if(response.status === 201){
-      setUser(loginUser);
+    if(response.status === 200){
       localStorage.setItem('token', response.data.access)
+      setUser(loginUser);
       navigate('/');
+      reloadPage();
     }} catch (ex) {
       console.log(ex.response)
     }
   }
-  console.log(user)
 
   // gets Token for users keep user on website even after refresh
   useEffect(() => {
@@ -53,17 +54,24 @@ function App() {
     try {
         const decodedUser = jwt_decode(jwt);
         setUserCode(decodedUser);
-
+        
     } catch {}
 }, []);
 
-  function signOut(){
-    userCode = localStorage.removeItem('token');
+  const signOut =() =>{
+    localStorage.removeItem('token');
+    navigate('/');
+    reloadPage();
   }
+
+  function reloadPage(){
+    window.location.reload(false)
+  }
+
 
 /////////////////////// Video Section ///////////////////////////
 
-    const [videoSearched, setVideoSearched] = useState(null);
+    // const [videoSearched, setVideoSearched] = useState(null);
     // gets a video IDs
     const [videosId, setVideosId] = useState([]);
     // video id that user clicked on
@@ -91,19 +99,16 @@ function App() {
       <NavBar filteredVideo={filteredVideo} userCode={userCode} user={user} signOut={signOut}/>
       <header className="App-header">
         <Routes>
-        <Route path='register' element={() => {
-            if (userCode == null) {
-              return <LoginForm />
-            }
-            else {
-              return <HomePage user={user} />
-            }
-          }} />
           <Route exact path='/' element={<HomePage />}/>
-          <Route path='register' element={<RegistrationForm createUser={createUser}/>} />
+           {/* <Route path='login' element={() => {
+            if(!user){
+              return <LoginForm loginUser={loginUser}/>
+            }else{
+              return <Profile user={user} />
+            }
+          }} /> */}
           <Route path='login' element={<LoginForm loginUser={loginUser} />} />
-
-          {/* How to click on video and send user to videopage maybe make another component to display videos that were sreached  */}
+          <Route path='register' element={<RegistrationForm createUser={createUser}/>} />
           <Route path='videopage' element={<VideoPage videoDetails={videoDetails} selectedVideo={selectedVideo} user={user}/>} />
           <Route path='searchresults' element={<SearchResults selectedVideoId={selectedVideoId} videosId={videosId}/>} />
         </Routes>

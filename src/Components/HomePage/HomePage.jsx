@@ -1,10 +1,6 @@
 import React from 'react';
 
 const HomePage = (props) => {
-
-    // make logic for search 
-    
-
     return ( 
     <div>
         

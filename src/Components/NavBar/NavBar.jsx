@@ -14,11 +14,8 @@ const NavBar = (props) => {
         event.preventDefault(); 
         props.filteredVideo(searched);
         navigate('/searchresults')
-
     }
-
-    
-
+    console.log(props.userCode)
     return ( 
         <Navbar bg="light" expand="lg">
         <Container>
@@ -26,9 +23,17 @@ const NavBar = (props) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-                
-                <Nav.Link href='/register'>Register</Nav.Link>
-                <Nav.Link href='/login'>Login</Nav.Link>'
+                {!props.userCode &&
+                <React.Fragment>
+                <Nav.Link href='/login'>Login</Nav.Link>
+                <Nav.Link path='/register'>Register</Nav.Link>
+                </React.Fragment>
+                }
+                {props.userCode && 
+                <React.Fragment>      
+                <Button onClick={() => props.signOut()}>Logout</Button>
+                </React.Fragment>       
+                }
                 
             </Nav>
             </Navbar.Collapse>
