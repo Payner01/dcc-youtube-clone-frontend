@@ -10,16 +10,15 @@ import VideoPage from './Components/VideoPage/VideoPage';
 import keys from './API_Keys.json'
 import axios from 'axios';
 import SearchResults from './Components/SearchResults/SearchResults';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 
 function App() {
 
   let navigate = useNavigate();
-// user login info
-  const [user, setUser] = useState(null);
-// This get users token
-  const [userCode, setUserCode] = useState (null);
+
+  const [user, setUser] = useState(null);// user login info
+  const [userCode, setUserCode] = useState (null);// This get users token
 
   async function createUser(newEntry){
     console.log(newEntry);
@@ -47,8 +46,8 @@ function App() {
   }
   console.log(user)
 
-  // gets Token for users keep user on website even after refresh
-  useEffect(() => {
+  
+  useEffect(() => { // gets Token for users keep user on website even after refresh
     const jwt = localStorage.getItem('token');
     try {
         const decodedUser = jwt_decode(jwt);
@@ -63,14 +62,11 @@ function App() {
 
 /////////////////////// Video Section ///////////////////////////
 
-    const [videoSearched, setVideoSearched] = useState(null);
-    // gets a video IDs
-    const [videosId, setVideosId] = useState([]);
-    // video id that user clicked on
-    const [selectedVideo, setSelectedVideo] =  useState("");
-    //sets the selected video
-    const [videoDetails, setVideoDetails] = useState([]);
-    // holds the details of selected video
+    const [videoSearched, setVideoSearched] = useState(null); // gets a video IDs
+    const [videosId, setVideosId] = useState([]);   // video id that user clicked on
+    const [selectedVideo, setSelectedVideo] =  useState("");    //sets the selected video
+    const [videoDetails, setVideoDetails] = useState([]);    // holds the details of selected video
+
 
     async function filteredVideo(videoSearched){
         let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${keys.googleAPIKey}&type=video&q=${videoSearched}&part=snippet`);

@@ -6,7 +6,7 @@ import { Form, Col, Button } from 'react-bootstrap'
 const CommentForm = (props) => {
 
     const [comment, setComment] = useState('');
-    let videoId = props.videoId
+    let videoId = props.videoId // passes the video's id ('string') 
 
     function handleSubmit(event){
         event.preventDefault();
@@ -23,20 +23,20 @@ const CommentForm = (props) => {
         console.log(response)
         
     }
+
     console.log(videoId)
     console.log(comment)
+
     return ( 
             
         <Form onSubmit={handleSubmit}>
             <Form.Label column sm="2">{props.user}</Form.Label>
             <Form.Group  className="mb-3" controlId="formPlaintextPassword">
-                <Form.Label column sm="2">
-                Comment Here
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="Insert Comment Here" onChange={(event) => setComment(event.target.value)} />
-                </Col>
-            </Form.Group>
+                <Form.Label column sm="2">Comments</Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Insert Comment Here" onChange={(event) => setComment(event.target.value)} />
+                    </Col>
+                </Form.Group>
             <Button type='submit'>submit</Button>
         </Form>
 
