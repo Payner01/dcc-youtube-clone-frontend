@@ -8,7 +8,6 @@ const NavBar = (props) => {
     let navigate = useNavigate();
 
     const [searched, setSearched] = useState('');
-    console.log(searched)
 
     function handleSubmit(event){
         event.preventDefault(); 
@@ -27,7 +26,7 @@ const NavBar = (props) => {
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
                 <Nav.Link href='/register'>Register</Nav.Link>
-                <Nav.Link href='/login'>Login</Nav.Link>'
+                <Nav.Link href='/login'>Login</Nav.Link>
             </Nav>
             </Navbar.Collapse>
                 <Form className="d-flex" onSubmit={handleSubmit}>

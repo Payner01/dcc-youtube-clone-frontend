@@ -4,7 +4,7 @@ import Comment from '../Comment/Comment';
 const VideoPage = (props) => {
 
     // we're going to have to pass props for search to have searched video play
-    
+    let userCode = props.userCode
     let user = props.user
     
     let videoId = props.selectedVideo
@@ -30,7 +30,7 @@ const VideoPage = (props) => {
         </Card>
         <br />
         <div className='comment-section'>
-            <Comment user={user} videoId={videoId}/>
+            <Comment user={user} userCode={userCode} videoId={videoId}/>
         </div>
         </div>
         

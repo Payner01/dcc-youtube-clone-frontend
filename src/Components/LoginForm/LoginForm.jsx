@@ -17,7 +17,6 @@ const LoginForm = (props) => {
         }
         props.loginUser(currentUser);
         console.log(currentUser)
-        console.log(currentUser)
         navigate('/');
     }
     //TODO add authorization so no just anyone can log in

@@ -32,22 +32,23 @@ function App() {
   }
 
   async function loginUser(loginUser){
-    console.log(loginUser);
+    
     try {
       let response = await axios.post('http://127.0.0.1:8000/api/auth/login/', loginUser)
-    console.log(response);
-    if(response.status === 201){
+      console.log(response);
+      if(response.status === 200){
       setUser(loginUser);
-      localStorage.setItem('token', response.data.access)
+      localStorage.setItem('token', response.data.access);
       navigate('/');
     }} catch (ex) {
-      console.log(ex.response)
+      console.log(ex.response);
     }
   }
   console.log(user)
+  console.log(userCode)
 
   
-  useEffect(() => { // gets Token for users keep user on website even after refresh
+  useEffect(() => { // gets Token for'token'rs keep user on website even after refresh
     const jwt = localStorage.getItem('token');
     try {
         const decodedUser = jwt_decode(jwt);
@@ -87,20 +88,20 @@ function App() {
       <NavBar filteredVideo={filteredVideo} userCode={userCode} user={user} signOut={signOut}/>
       <header className="App-header">
         <Routes>
-        <Route path='register' element={() => {
+        {/* <Route path='register' element={() => {
             if (userCode == null) {
               return <LoginForm />
             }
             else {
               return <HomePage user={user} />
             }
-          }} />
+          }} /> */}
           <Route exact path='/' element={<HomePage />}/>
           <Route path='register' element={<RegistrationForm createUser={createUser}/>} />
           <Route path='login' element={<LoginForm loginUser={loginUser} />} />
 
           {/* How to click on video and send user to videopage maybe make another component to display videos that were sreached  */}
-          <Route path='videopage' element={<VideoPage videoDetails={videoDetails} selectedVideo={selectedVideo} user={user}/>} />
+          <Route path='videopage' element={<VideoPage videoDetails={videoDetails} selectedVideo={selectedVideo} user={user} userCode={userCode}/>} />
           <Route path='searchresults' element={<SearchResults selectedVideoId={selectedVideoId} videosId={videosId}/>} />
         </Routes>
       </header>
