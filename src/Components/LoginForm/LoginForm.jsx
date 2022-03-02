@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = (props) => {
 
+    let navigate = useNavigate();
     
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -15,9 +17,9 @@ const LoginForm = (props) => {
         }
         props.loginUser(currentUser);
         console.log(currentUser)
-        
+        navigate('/');
     }
-    
+    //TODO add authorization so no just anyone can log in
 
     return ( 
 

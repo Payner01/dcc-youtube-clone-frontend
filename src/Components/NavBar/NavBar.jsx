@@ -8,7 +8,6 @@ const NavBar = (props) => {
     let navigate = useNavigate();
 
     const [searched, setSearched] = useState('');
-    console.log(searched)
 
     function handleSubmit(event){
         event.preventDefault(); 
@@ -37,10 +36,10 @@ const NavBar = (props) => {
                 
             </Nav>
             </Navbar.Collapse>
-        <Form className="d-flex" onSubmit={handleSubmit}>
-            <FormControl type="search" placeholder="Search" className="me-2" aria-label="Search" onChange={(event) => setSearched(event.target.value)}/>
-            <Button type='submit' variant="secondary">Search</Button>
-        </Form>
+                <Form className="d-flex" onSubmit={handleSubmit}>
+                    <FormControl type="search" placeholder="Search" className="me-2" aria-label="Search" onChange={(event) => setSearched(event.target.value)}/>
+                    <Button type='submit' variant="secondary">Search</Button>
+                </Form>
         </Container>
     </Navbar>
 
