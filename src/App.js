@@ -7,10 +7,10 @@ import LoginForm from './Components/LoginForm/LoginForm';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
 import VideoPage from './Components/VideoPage/VideoPage';
-import keys from './API_Keys.json'
 import axios from 'axios';
 import SearchResults from './Components/SearchResults/SearchResults';
 import { useNavigate } from "react-router-dom";
+import keys from '/.API_Keys.json'
 
 
 function App() {
@@ -41,16 +41,11 @@ function App() {
       if(response.status === 200){
       setUser(loginUser);
       localStorage.setItem('token', response.data.access);
-      // navigate('/');
-      // reloadPage();
+      navigate('/');
     }} catch (ex) {
       console.log(ex.response);
     }
   }
-
-  
-
-  
 
   useEffect(() => { // gets Token for'token'rs keep user on website even after refresh
     const jwt = localStorage.getItem('token');
@@ -58,11 +53,7 @@ function App() {
     try {
         const decodedUser = jwt_decode(jwt);
         setUserCode(decodedUser);
-        
-      
-        
     } catch {
-
     }
 }, []);
 
@@ -70,9 +61,6 @@ function App() {
     localStorage.removeItem('token');
     navigate('/');
   }
-
-
-
 
 /////////////////////// Video Section ///////////////////////////
 
@@ -94,7 +82,6 @@ function App() {
       console.log(video);
       navigate('/videopage')
     }
-    console.log(videoDetails);
 
   return (
     <div className="App">

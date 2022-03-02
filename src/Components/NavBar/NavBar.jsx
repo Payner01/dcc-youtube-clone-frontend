@@ -14,7 +14,7 @@ const NavBar = (props) => {
         props.filteredVideo(searched);
         navigate('/searchresults')
     }
-    console.log(props.userCode)
+    
     return ( 
         <Navbar bg="light" expand="lg">
         <Container>
@@ -22,13 +22,13 @@ const NavBar = (props) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-                {!props.userCode &&
+                {!localStorage.getItem('token') &&
                 <React.Fragment>
                 <Nav.Link href='/login'>Login</Nav.Link>
                 <Nav.Link path='/register'>Register</Nav.Link>
                 </React.Fragment>
                 }
-                {props.userCode && 
+                {localStorage.getItem('token') && 
                 <React.Fragment>      
                 <Button onClick={() => props.signOut()}>Logout</Button>
                 </React.Fragment>       
