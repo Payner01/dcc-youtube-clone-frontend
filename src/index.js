@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Provider } from '@lyket/react';
 
 import { BrowserRouter as Router } from 'react-router-dom'
 
 ReactDOM.render(
-    <Router>
+    <Router apiKey="pt_24dd1faa7318ffb3fbbd38955f8a8e">
       <App />
     </Router>
   ,

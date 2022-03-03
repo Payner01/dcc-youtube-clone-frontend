@@ -72,7 +72,7 @@ function App() {
     const [videosId, setVideosId] = useState([]);   // video id that user clicked on
     const [selectedVideo, setSelectedVideo] =  useState("");    //sets the selected video
     const [videoDetails, setVideoDetails] = useState([]);    // holds the details of selected video
-
+    const [relatedVideos, setRelatedVideos] = useState([]);
 
     async function filteredVideo(videoSearched){
         let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${keys.googleAPIKey}&type=video&q=${videoSearched}&part=snippet`);
@@ -80,7 +80,11 @@ function App() {
         console.log(response.data.items);
     }
 
-
+    async function relatedVideo(){
+      let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${selectedVideo}&type=video&key=${keys.googleAPIKey}&part=snippet`);
+      setRelatedVideos(response.data.items);
+      console.log(response.data.items);
+    }
 
     const selectedVideoId = (video) => {
       setSelectedVideo(video.id.videoId);
@@ -98,7 +102,7 @@ function App() {
           <Route exact path='/' element={<HomePage />}/>
           <Route path='login' element={<LoginForm loginUser={loginUser} />} />
           <Route path='register' element={<RegistrationForm createUser={createUser}/>} />
-          <Route path='videopage' element={<VideoPage videoDetails={videoDetails} selectedVideo={selectedVideo} user={user} userCode={userCode}/>} />
+          <Route path='videopage' element={<VideoPage  relatedVideos={relatedVideos} selectedVideoId={selectedVideoId} relatedVideo={relatedVideo} videoDetails={videoDetails} selectedVideo={selectedVideo} user={user} userCode={userCode}/>} />
           <Route path='searchresults' element={<SearchResults selectedVideoId={selectedVideoId} videosId={videosId}/>} />
         </Routes>
       </header>

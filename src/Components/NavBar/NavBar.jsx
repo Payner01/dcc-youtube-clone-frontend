@@ -25,7 +25,7 @@ const NavBar = (props) => {
                 {!localStorage.getItem('token') &&
                 <React.Fragment>
                 <Nav.Link href='/login'>Login</Nav.Link>
-                <Nav.Link path='/register'>Register</Nav.Link>
+                <Nav.Link href='/register'>Register</Nav.Link>
                 </React.Fragment>
                 }
                 {localStorage.getItem('token') && 

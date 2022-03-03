@@ -19,7 +19,7 @@ const VideoPage = (props) => {
         </Card>
         <Card>
             <Card.Body>
-                <RelateVideos selectedVideo={props.selectedVideo}/>
+                <RelateVideos relatedVideos={props.relatedVideos} selectedVideoId={props.selectedVideoId} relatedVideo={props.relatedVideo} videoId={props.selectedVideo}  selectedVideo={props.selectedVideo}/>
                 </Card.Body>
             </Card>
         <br />
