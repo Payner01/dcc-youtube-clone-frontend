@@ -26,7 +26,7 @@ const RelateVideos = (props) => {
             
             return (
                 <div>
-                <Card key={index} style={{ width: '18rem' }}>
+                <Card key={index} class="related-card" style={{ width: '15rem' }}>
                     
                             <Card.Img variant="top" src={video.snippet.thumbnails.medium.url} />
                                 <Card.Body>

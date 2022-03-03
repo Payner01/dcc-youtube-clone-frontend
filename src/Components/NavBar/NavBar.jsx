@@ -30,7 +30,7 @@ const NavBar = (props) => {
                 }
                 {localStorage.getItem('token') && 
                 <React.Fragment>      
-                <Button onClick={() => props.signOut()}>Logout</Button>
+                <Button variant="danger "onClick={() => props.signOut()}>Logout</Button>
                 </React.Fragment>       
                 }
                 

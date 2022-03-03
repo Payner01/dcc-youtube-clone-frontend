@@ -1,15 +1,17 @@
 import { Card } from 'react-bootstrap'
 import Comment from '../Comment/Comment';
 import RelateVideos from '../RelatedVideos/RelatedVideos';
+import "./VideoPage.css"
 
 const VideoPage = (props) => {
     
     
 
     return ( 
+        <div className='page-content'>
         <div className='video-content'>
          <h1>Current Video</h1>
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '40rem' }}>
             <iframe className="ytplayer" type="text/html" width="640" height="360"
             src={`https://www.youtube.com/embed/${props.selectedVideo}?autoplay=1&origin=http://example.com`}></iframe>
                 <Card.Body>
@@ -20,14 +22,14 @@ const VideoPage = (props) => {
         <Card>
             <Card.Body>
                 <RelateVideos relatedVideos={props.relatedVideos} selectedVideoId={props.selectedVideoId} relatedVideo={props.relatedVideo} videoId={props.selectedVideo}  selectedVideo={props.selectedVideo}/>
-                </Card.Body>
+            </Card.Body>
             </Card>
         <br />
         <div className='comment-section'>
             <Comment user={props.user} userCode={props.userCode} videoId={props.selectedVideo}/>
         </div>
         </div>
-        
+        </div>
 
     )}
  
