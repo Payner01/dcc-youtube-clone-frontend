@@ -1,0 +1,15 @@
+.form-grid{
+    padding: 0, 5em, 0, 5em;
+    background-color: #114b5f;
+    
+}
+.form{
+    padding-top: 1em;
+}
+.form-control{
+    background-color: #DEFFFC;
+    
+}
+.post-content{
+    padding-bottom: 1em;
+}

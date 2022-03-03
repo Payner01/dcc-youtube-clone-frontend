@@ -24,6 +24,8 @@ const CommentForm = (props) => {
         
     }
 
+    
+
     async function postComment(comment){
         const jwt = localStorage.getItem('token');
         console.log(comment)

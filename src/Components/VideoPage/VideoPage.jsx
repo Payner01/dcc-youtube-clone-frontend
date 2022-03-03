@@ -13,8 +13,8 @@ const VideoPage = (props) => {
             <iframe className="ytplayer" type="text/html" width="640" height="360"
             src={`https://www.youtube.com/embed/${props.selectedVideo}?autoplay=1&origin=http://example.com`}></iframe>
                 <Card.Body>
-                    <Card.Title>Title: {props.videoDetails.snippet.title}</Card.Title>
-                    <Card.Text>Description: {props.videoDetails.snippet.description}</Card.Text>
+                    <Card.Text>Title: {props.videoDetails.snippet.title}</Card.Text>
+                    <Card.Title>Description: {props.videoDetails.snippet.description}</Card.Title>
                 </Card.Body>
         </Card>
         <Card>
@@ -24,7 +24,7 @@ const VideoPage = (props) => {
             </Card>
         <br />
         <div className='comment-section'>
-            <Comment user={props.user} userCode={props.userCode} videoId={props.videoId}/>
+            <Comment user={props.user} userCode={props.userCode} videoId={props.selectedVideo}/>
         </div>
         </div>
         

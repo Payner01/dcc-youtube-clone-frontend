@@ -1,7 +1,7 @@
 import { Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import googleAPIKey from 'src/API_Keys.json'
+import googleAPIKey from '../../API_Keys.json'
 
 const RelateVideos = (props) => {
     

@@ -10,7 +10,7 @@ import VideoPage from './Components/VideoPage/VideoPage';
 import axios from 'axios';
 import SearchResults from './Components/SearchResults/SearchResults';
 import { useNavigate } from "react-router-dom";
-import keys from '/.API_Keys.json'
+import keys from "./API_Keys.json";
 
 
 function App() {
@@ -41,11 +41,13 @@ function App() {
       if(response.status === 200){
       setUser(loginUser);
       localStorage.setItem('token', response.data.access);
-      navigate('/');
+      window.location = "/"
     }} catch (ex) {
       console.log(ex.response);
     }
   }
+
+  
 
   useEffect(() => { // gets Token for'token'rs keep user on website even after refresh
     const jwt = localStorage.getItem('token');
@@ -62,6 +64,8 @@ function App() {
     navigate('/');
   }
 
+
+  console.log(userCode)
 /////////////////////// Video Section ///////////////////////////
 
     const [videoSearched, setVideoSearched] = useState(null); // gets a video IDs
@@ -76,6 +80,8 @@ function App() {
         console.log(response.data.items);
     }
 
+
+
     const selectedVideoId = (video) => {
       setSelectedVideo(video.id.videoId);
       setVideoDetails(video);
@@ -83,6 +89,7 @@ function App() {
       navigate('/videopage')
     }
 
+    console.log(videosId)
   return (
     <div className="App">
       <NavBar filteredVideo={filteredVideo} userCode={userCode} user={user} signOut={signOut}/>
