@@ -5,10 +5,10 @@ env:
 
 on:
   push:
-    branches: [main]
+    branches: [devOps]
   pull_request:
     # type: is an option too
-    branches: [main]
+    branches: [devOps]
   workflow_dispatch:
 
 jobs:
