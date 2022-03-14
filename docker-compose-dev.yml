@@ -4,7 +4,7 @@ services:
   web:
     container_name: youtube-clone-dev
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile.dev
     volumes:
       - .:/app
@@ -12,13 +12,13 @@ services:
     ports:
       - '3002:3000'
 
-  test:
-    container_name: youtube-test
-    image: youtube-clone-dev
-    build:
-      context: ./
-      dockerfile: Dockerfile.dev
-    volumes:
-      - .:/app
-      - ./node_modules:/app/node_modules
-    command: ["npm", "run", "test"]
+  # test:
+  #   container_name: youtube-test
+  #   image: youtube-clone-dev
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile.dev
+  #   volumes:
+  #     - .:/app
+  #     - ./node_modules:/app/node_modules
+  #   command: ["npm", "run", "test"]
