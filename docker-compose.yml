@@ -6,7 +6,7 @@ services:
     container_name: youtube-prod
     image: youtube-frontend
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
     volumes:
       - .:/app
