@@ -1,23 +1,40 @@
-# version: '3.9'
-
-# services:
-#   docker-react-aer:
-#     container_name: docker-react-aer
-#     build:
-#       context: ./
-#       dockerfile: Dockerfile
-#     volumes:
-#       - .:/app
-#       - '/app/node_modules'
-#     ports:
-#       - "8080:80"
 
 version: '3.9'
 
 services:
-  prod-web:
-    container_name: my-awesome-app-bmp-aws
-    image: brycepayne/my-awesome-app-bmp:latest
+  youtube-frontend:
+    container_name: youtube-frontend
+    image: youtube-frontend
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - ./node_modules:/node_modules/app/
     ports:
       - '80:8080'
-    command: ['node', 'app.js']
+    # command: ['node', 'App.js']
+  # having command ^ it gave us an exit code 127 removing it and it worked.
+
+  youtube-backend:
+    container_name: youtube-backend
+    image: youtube-backend
+    ports:
+      - '8001:8000'
+
+  db:
+    container_name: db
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+  
+  adminer:
+    container_name: adminer
+    image: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+      ADMINER_DESIGN: galkaev
+    restart: always
+    ports:
+      - "8080:8080"

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar, Container, Nav, Form, Button, FormControl, } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 const NavBar = (props) => {
@@ -24,8 +25,10 @@ const NavBar = (props) => {
             <Nav className="me-auto">
                 {!localStorage.getItem('token') &&
                 <React.Fragment>
-                <Nav.Link href='/login'>Login</Nav.Link>
-                <Nav.Link href='/register'>Register</Nav.Link>
+                {/* <Nav.Link href='/login'>Login</Nav.Link> */}
+                <Link to="login">Login</Link>
+                <Link to="register">Register</Link>
+                {/* <Nav.Link href='/register'>Register</Nav.Link> */}
                 </React.Fragment>
                 }
                 {localStorage.getItem('token') && 
