@@ -4,11 +4,8 @@ env:
   DATE_STAMP: $(date +%s)
 
 on:
-  push:
-    branches: [devOps]
   pull_request:
-    # type: is an option too
-    branches: [devOps]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -18,9 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Env variables
-        run: echo "date-stamp=${{env.DATE_STAMP}}" >> $GITHUB_ENV
+      - name: Runs docker compose
+        run: docker-compose -f "docker-compose-dev.yml" up -d --build
 
-
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag brycepayne/youtube-frontend:latest
+      
