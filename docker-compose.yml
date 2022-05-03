@@ -1,18 +1,19 @@
-
 version: '3.9'
 
 services:
   youtube-frontend:
     container_name: youtube-frontend
     image: youtube-frontend
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    volumes:
-      - .:/app
-      - ./node_modules:/node_modules/app/
+    # build:
+    #   context: ./
+    #   dockerfile: Dockerfile
+    # volumes:
+    #   - .:/app
+    #   - ./node_modules:/node_modules/app/
     ports:
-      - '80:8080'
+      - '80:80'
+    depends_on:
+      - youtube-backend
     # command: ['node', 'App.js']
   # having command ^ it gave us an exit code 127 removing it and it worked.
 
@@ -21,20 +22,39 @@ services:
     image: youtube-backend
     ports:
       - '8001:8000'
+    depends_on:
+      - db
 
   db:
     container_name: db
+    platform: linux/amd64
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - production_db_volume:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: db
   
-  adminer:
-    container_name: adminer
-    image: adminer
+  # adminer:
+  #   container_name: adminer
+  #   image: adminer
+  #   environment:
+  #     ADMINER_DEFAULT_SERVER: db
+  #     ADMINER_DESIGN: galkaev
+  #   restart: always
+  #   ports:
+  #     - "8080:8080"
+
+  migrate:
+    container_name: migrate
+    image: youtube-backend
     environment:
-      ADMINER_DEFAULT_SERVER: db
-      ADMINER_DESIGN: galkaev
-    restart: always
-    ports:
-      - "8080:8080"
+      - MYSQL_DATABASE=db
+      - MYSQL_ROOT_PASSWORD=example
+    command: [sh, -cx, 'python ./drf_jwt_backend/manage.py migrate']
+    depends_on:
+      - db
+  
+volumes:
+  production_db_volume:
